@@ -1,13 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emoji TensorFlow Test 1</title>
-    <link rel="stylesheet" href="css/pico.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-</head>
-<body>
-    
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Emoji TensorFlow Test 1</title>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
+		/>
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+	</head>
+	<body>
+		<h2>Test Emoji Predictor 1</h2>
+		<script>
+			const model = tf.sequential()
+
+			model.add(tf.layers.dense({ units: 1, inputShape: [1] }))
+
+			model.compile({ loss: "meanSquaredError", optimizer: "sgd" })
+
+			const xs = tf.tensor2d(['tommate', 'pomme', 'peche', 'raisin', 'pomme de terre'], [5, 1])
+
+			const ys = tf.tensor2d(['légume', 'fruit', 'fruit', 'fruit', 'légume'], [5, 1])
+
+			model.fit(xs, ys, { epochs: 10 }).then(() => {
+				model.predict(tf.tensor2d(['fraise'], [1, 1])).print()
+			})
+		</script>
+	</body>
 </html>
